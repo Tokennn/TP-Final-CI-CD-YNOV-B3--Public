@@ -5,6 +5,7 @@ const statusTitleEl = document.querySelector("#status-title");
 const statusMessageEl = document.querySelector("#status-message");
 const productCountEl = document.querySelector("#product-count");
 const refreshButton = document.querySelector("#refresh-button");
+const appVersionEl = document.querySelector("#app-version");
 
 function formatPrice(priceCents) {
   return new Intl.NumberFormat("fr-FR", {
@@ -35,6 +36,10 @@ async function loadHealth() {
 
   const data = await fetchJson("/api/health");
   healthEl.textContent = JSON.stringify(data, null, 2);
+
+  if (appVersionEl && data.version) {
+    appVersionEl.textContent = `v${data.version}`;
+  }
 
   if (data.status === "ok" && data.checks?.database === "ok") {
     setStatus("ok", "Application operationnelle", "API et PostgreSQL repondent correctement.");
