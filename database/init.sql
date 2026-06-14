@@ -10,3 +10,8 @@ INSERT INTO products (name, description, price_cents) VALUES
   ('Souris precision', 'Souris ergonomique pour poste de travail.', 3490),
   ('Ecran 24 pouces', 'Ecran full HD pour environnement bureautique.', 12990)
 ON CONFLICT DO NOTHING;
+
+-- v1.1.0 : ajout NON destructif au catalogue (les produits existants sont conservés).
+INSERT INTO products (name, description, price_cents) VALUES
+  ('Casque audio', 'Casque filaire confortable pour le bureau.', 4990)
+ON CONFLICT DO NOTHING;
