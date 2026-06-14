@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: shoplite_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-shoplite}
+      POSTGRES_USER: ${POSTGRES_USER:-shoplite}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-shoplite_password}
+    volumes:
+      - shoplite_pgdata:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - shoplite_net
+
+  api:
+    build: ./api
+    container_name: shoplite_api
+    environment:
+      API_PORT: 3000
+      DATABASE_URL: postgres://${POSTGRES_USER:-shoplite}:${POSTGRES_PASSWORD:-shoplite_password}@db:5432/${POSTGRES_DB:-shoplite}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      APP_VERSION: ${APP_VERSION:-starter}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - shoplite_net
+
+  frontend:
+    build: ./frontend
+    container_name: shoplite_frontend
+    networks:
+      - shoplite_net
+
+  proxy:
+    image: nginx:1.27-alpine
+    container_name: shoplite_proxy
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    volumes:
+      - ./infra/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - shoplite_net
+
+volumes:
+  shoplite_pgdata:
+
+networks:
+  shoplite_net:
+    driver: bridge

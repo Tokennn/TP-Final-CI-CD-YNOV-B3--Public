@@ -1,0 +1,13 @@
+name: CI starter a completer
+
+on:
+  workflow_dispatch:
+
+jobs:
+  consigne:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consigne
+        run: |
+          echo "Ce workflow est volontairement minimal."
+          echo "Les etudiants doivent ajouter push, pull_request, npm ci, npm test, npm audit, npm outdated et docker compose build."

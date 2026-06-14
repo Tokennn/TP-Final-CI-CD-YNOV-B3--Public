@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopLite - Starter DevOps</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Retour accueil">
+      <span class="brand-mark">SL</span>
+      <span>
+        <strong>ShopLite</strong>
+        <small>Starter DevOps</small>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#status">Etat</a>
+      <a href="#catalog">Catalogue</a>
+      <a href="#devops">DevOps</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">TP final integrateur</p>
+        <h1>Une mini boutique pour apprendre Docker, CI/CD, backup et rollback.</h1>
+        <p class="lead">ShopLite sert de base au TP. Le but est de partir d'une application simple, puis de la transformer en projet DevOps complet.</p>
+        <div class="actions">
+          <a class="button primary" href="#catalog">Voir les produits</a>
+          <button class="button secondary" id="refresh-button" type="button">Rafraichir</button>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Resume technique">
+        <div class="metric">
+          <span>Stack</span>
+          <strong>Node + PostgreSQL</strong>
+        </div>
+        <div class="metric">
+          <span>Lancement</span>
+          <strong>Docker Compose</strong>
+        </div>
+        <div class="metric">
+          <span>Objectif</span>
+          <strong>Rollback sans perte</strong>
+        </div>
+      </aside>
+    </section>
+
+    <section id="status" class="section-grid">
+      <div class="section-title">
+        <p class="eyebrow">Observabilite</p>
+        <h2>Etat de l'application</h2>
+        <p>Cette zone montre si l'API et PostgreSQL repondent correctement.</p>
+      </div>
+      <div class="status-card">
+        <div class="status-header">
+          <span id="status-dot" class="status-dot pending"></span>
+          <div>
+            <h3 id="status-title">Verification en cours</h3>
+            <p id="status-message">Appel de /api/health...</p>
+          </div>
+        </div>
+        <pre id="health">Chargement...</pre>
+      </div>
+    </section>
+
+    <section id="catalog">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Catalogue</p>
+          <h2>Produits disponibles</h2>
+        </div>
+        <p id="product-count" class="pill">Chargement</p>
+      </div>
+      <div id="products" class="products">
+        <article class="product-card skeleton"></article>
+        <article class="product-card skeleton"></article>
+        <article class="product-card skeleton"></article>
+      </div>
+    </section>
+
+    <section id="devops" class="devops-band">
+      <div>
+        <p class="eyebrow">Mission du TP</p>
+        <h2>Ce starter doit etre industrialise.</h2>
+      </div>
+      <div class="todo-grid">
+        <span>Git</span>
+        <span>Docker</span>
+        <span>CI/CD</span>
+        <span>Tests</span>
+        <span>Logs</span>
+        <span>Backup</span>
+        <span>Rollback</span>
+        <span>Documentation</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>ShopLite Starter - base pedagogique pour le TP DevOps.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
