@@ -1,0 +1,32 @@
+# Override PRODUCTION SIMULÉE (pédagogique, local).
+# Déployé uniquement depuis un tag v* (voir .github/workflows/cd.yml).
+# Usage :
+#   docker compose -p shoplite-prod \
+#     -f docker-compose.yml -f docker-compose.prod.yml \
+#     --env-file .env.prod up -d
+#
+# La prod consomme des IMAGES TAGUÉES (pas de build à la volée) -> on déploie
+# exactement l'artefact validé en staging, ce qui rend le rollback déterministe.
+services:
+  db:
+    container_name: shoplite_prod_db
+    ports:
+      - "${DB_PORT:-55434}:5432"
+
+  api:
+    container_name: shoplite_prod_api
+    build: !reset null
+    image: shoplite-api:${APP_VERSION:?APP_VERSION obligatoire en prod}
+    environment:
+      APP_VERSION: ${APP_VERSION}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+
+  frontend:
+    container_name: shoplite_prod_frontend
+    build: !reset null
+    image: shoplite-frontend:${APP_VERSION}
+
+  proxy:
+    container_name: shoplite_prod_proxy
+    ports:
+      - "${HTTP_PORT:-8082}:80"
