@@ -1,8 +1,29 @@
+# Override STAGING.
+# Usage :
+#   docker compose -p shoplite-staging \
+#     -f docker-compose.yml -f docker-compose.staging.yml \
+#     --env-file .env.staging up -d --build
+#
+# Le projet `-p shoplite-staging` isole réseaux/volumes/conteneurs de dev.
+# Les ports sont décalés pour cohabiter avec l'environnement de dev.
 services:
+  db:
+    container_name: shoplite_staging_db
+    ports:
+      - "${DB_PORT:-55433}:5432"
+
   api:
+    container_name: shoplite_staging_api
+    image: shoplite-api:${APP_VERSION:-staging}
     environment:
-      APP_VERSION: staging-starter
+      APP_VERSION: ${APP_VERSION:-staging}
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
+
+  frontend:
+    container_name: shoplite_staging_frontend
+    image: shoplite-frontend:${APP_VERSION:-staging}
 
   proxy:
+    container_name: shoplite_staging_proxy
     ports:
-      - "8081:80"
+      - "${HTTP_PORT:-8081}:80"
