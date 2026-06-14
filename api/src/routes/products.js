@@ -7,7 +7,7 @@ const router = express.Router();
 // NOTE: l'incident contrôlé du TP consiste à introduire ici une colonne
 // inexistante (ex: ajouter "stock_qty"), ce qui casse la requête et fait
 // échouer products.test.js. Le rollback (git revert) restaure cette ligne.
-const PRODUCT_COLUMNS = "id, name, description, price_cents";
+const PRODUCT_COLUMNS = "id, name, description, price_cents, stock_qty";
 
 // GET /products : liste du catalogue.
 // Supporte un paramètre optionnel ?limit (entier positif) -> 400 si invalide.
