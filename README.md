@@ -222,15 +222,6 @@ Checklist (détail dans [docs/INCIDENT.md](docs/INCIDENT.md) et le rapport) :
 - [x] **Image** : base figée `node:20-alpine`, multi-stage, utilisateur non-root, healthcheck.
 - [x] **Rotation des secrets** : voir procédure dans [docs/INCIDENT.md](docs/INCIDENT.md).
 
-### Taille de l'image API
-
-Multi-stage (`api/Dockerfile`), `node_modules` de prod ≈ **6 Mo**. Le poids final est dominé par la base `node:20-alpine` :
-
-| Plateforme         | Base node:20-alpine | Image finale |
-| ------------------ | ------------------- | ------------ |
-| linux/amd64 (CI)   | ~135 Mo             | **~145 Mo** ✅ (< 200 Mo) |
-| arm64 (Apple Silicon) | ~194 Mo          | ~201 Mo (spécifique à l'arch) |
-
 ---
 
 ## Documentation complémentaire
