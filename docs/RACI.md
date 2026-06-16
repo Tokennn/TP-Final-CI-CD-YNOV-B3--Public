@@ -40,18 +40,30 @@
 
 > Cette matrice est une proposition cohérente avec le scénario ShopLite. À ajuster selon la composition réelle de l'équipe (3 à 5 personnes → cumul de rôles).
 
-## Qui a fait quoi (à remplir par l'équipe)
+## Composition de l'équipe
+
+| Membre | Rôles tenus | Contribution Git |
+| ------ | ----------- | ---------------- |
+| **Tokennn** | DevOps / Release Manager, Dév API, DBA, QA, Incident Manager | 21 commits (toute la chaîne DevOps) |
+| **AKTAS Semih** | Développeur Frontend | 1 commit (ajustement de l'affichage catalogue) |
+
+> Équipe réduite : les rôles sont cumulés. La répartition ci-dessous reflète la contribution réelle constatée dans l'historique Git (`git log --all`).
+
+## Qui a réellement fait quoi
 
 | Activité | Personne(s) | Preuve |
 | -------- | ----------- | ------ |
-| Version stable Git + tags | … | `git tag` |
-| Docker / Compose | … | `docker compose ps` |
-| CI/CD | … | runs GitHub Actions |
-| Test `/api/products` | … | `npm test` |
-| Backup PostgreSQL | … | `backups/*.sql` |
-| Incident contrôlé | … | logs 500 |
-| Rollback | … | sortie `rollback.sh` |
-| Rapport d'incident | … | `docs/INCIDENT.md` |
+| Version stable Git + tags | Tokennn | `git tag` → `v1.0.0`, `v1.1.0` |
+| Docker / Compose | Tokennn | commit `feat(docker)` ; `docker compose ps` (services healthy) |
+| CI/CD | Tokennn | commit `ci:` ; `.github/workflows/ci.yml` + `cd.yml` |
+| Test `/api/products` | Tokennn | `api/tests/products.test.js` + `products.integration.test.js` ; `npm test` |
+| Frontend / affichage catalogue | AKTAS Semih | commit `073070e` (`frontend/src/style.css`) |
+| Sauvegarder PostgreSQL | Tokennn | `scripts/backup.sh` ; `backups/*.sql` |
+| Incident contrôlé | Tokennn | commit fautif `caaf882` (colonne `stock_qty`) → `/products` 500 |
+| Diagnostiquer l'incident | Tokennn | logs JSON API + test d'intégration rouge |
+| Rollback | Tokennn | sortie `scripts/rollback.sh v1.0.0` |
+| Vérifier les données après rollback | Tokennn | `/api/products` → `count: 3` (données conservées) |
+| Rédiger le rapport d'incident | Tokennn | `docs/INCIDENT.md` |
 
 ## Timeline incident (rappel)
 
